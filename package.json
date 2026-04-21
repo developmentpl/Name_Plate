@@ -1,0 +1,24 @@
+{
+  "name": "nameplate-generator",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Bulk nameplate design & export application - client-side only, no database",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.2",
+    "jszip": "^3.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tinycolor2": "^1.6.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2"
+  }
+}

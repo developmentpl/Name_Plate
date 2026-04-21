@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Poppins",
+    "supports": ["english", "devanagari"],
+    "variants": [
+      { "weight": 400, "file": "Poppins-Regular.woff2" },
+      { "weight": 600, "file": "Poppins-SemiBold.ttf" },
+      { "weight": 700, "file": "Poppins-Bold.woff2" }
+    ]
+  },
+  {
+    "name": "Roboto",
+    "supports": ["english"],
+    "variants": [
+      { "weight": 700, "file": "Roboto-Bold.ttf" }
+    ]
+  },
+  {
+    "name": "Arial Black",
+    "supports": ["english"],
+    "variants": [
+      { "weight": 900, "file": "ArialBlack.ttf" }
+    ]
+  },
+  {
+    "name": "Kalam",
+    "supports": ["english", "devanagari"],
+    "variants": [
+      { "weight": 400, "file": "Kalam-Regular.woff2" },
+      { "weight": 700, "file": "Kalam-Bold.woff2" }
+    ]
+  },
+  {
+    "name": "Tiro Devanagari Marathi",
+    "supports": ["english", "devanagari"],
+    "variants": [
+      { "weight": 400, "file": "TiroDevanagariMarathi-Regular.woff2" }
+    ]
+  },
+  {
+    "name": "AMS Aaditya",
+    "supports": ["english"],
+    "variants": [
+      { "weight": 400, "file": "AMS_Aaditya.ttf" }
+    ]
+  },
+  {
+    "name": "AMS Aakash",
+    "supports": ["english"],
+    "variants": [
+      { "weight": 400, "file": "AMS_Aakash.ttf" }
+    ]
+  },
+  {
+    "name": "AMS Manoja",
+    "supports": ["english"],
+    "variants": [
+      { "weight": 400, "file": "AMS_Manoja.ttf" }
+    ]
+  }
+]
