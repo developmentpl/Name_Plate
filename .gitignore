@@ -5,3 +5,10 @@ dist/
 .DS_Store
 .env
 .env.local
+
+# SSH keys and credentials — NEVER commit these
+*.pem
+*.ppk
+*.key
+id_rsa
+id_rsa.pub
