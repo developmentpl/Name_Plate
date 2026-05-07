@@ -71,10 +71,13 @@ export default function BulkMode() {
     const entries = [];
     for (let i = 0; i < generated.length; i++) {
       const r = generated[i].row;
+      const cfg = rowToConfig(r, unit, 300);
       const c = document.createElement('canvas');
-      renderNameplate(c, rowToConfig(r, unit, 300));
+      renderNameplate(c, cfg);
       const base = `${String(r.sr_no).padStart(4, '0')}_${sanitizeFilename(r.text)}`;
-      entries.push({ canvas: c, filename: base });
+      // Attaching `config` enables the print-ready (CMYK vector) PDF path
+      // when the user picks PDF. Other formats ignore it.
+      entries.push({ canvas: c, filename: base, config: cfg });
     }
     await exportBulkZip(entries, format, `nameplates_${Date.now()}`);
     setExportCanvases(false);

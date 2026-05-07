@@ -48,6 +48,12 @@ export function renderNameplate(canvas, config) {
     fontSize = 'auto',
     fontFamily = 'auto',
     dpi = 300,
+    // Optional: when true, skip the background fill and borders so the
+    // canvas contains only the text on a transparent background. Used by
+    // the print-ready PDF exporter, which paints the plate body and
+    // borders as vectors with CMYK colors. Defaults to false so all
+    // existing on-screen previews and raster exports are unchanged.
+    bodyTransparent = false,
   } = config;
 
   // Resolve colors
@@ -65,31 +71,43 @@ export function renderNameplate(canvas, config) {
 
   const ctx = canvas.getContext('2d');
 
-  // ----- Background (with optional rounded corners) -----
-  ctx.fillStyle = bg;
-  if (radius > 0) {
-    roundedRectPath(ctx, 0, 0, W, H, radius);
-    ctx.fill();
-  } else {
-    ctx.fillRect(0, 0, W, H);
-  }
-
-  // ----- Border -----
-  let borderFootprint = 0;  // how much space the border takes from the edge
+  // Calculate where text should sit (inside the borders) — needed even in
+  // text-only mode so the overlay aligns with the vector borders.
+  let borderFootprint = 0;
   if (style === 'double') {
-    const oc = resolveColor(outerColor);
     const ot = Math.max(0, Number(outerThickness) || 0);
     const g = Math.max(0, Number(gap) || 0);
-    const ic = resolveColor(innerColor);
     const it = Math.max(0, Number(innerThickness) || 0);
-    drawDoubleBorder(ctx, W, H, oc, ot, g, ic, it, radius);
     borderFootprint = ot + g + it;
   } else if (style !== 'none') {
-    const brd = resolveColor(borderColor);
     const brdPx = Math.max(0, Number(borderThickness) || 0);
-    if (brd && brdPx > 0) {
-      drawSimpleBorder(ctx, W, H, brd, brdPx, style, radius);
-      borderFootprint = brdPx;
+    if (resolveColor(borderColor) && brdPx > 0) borderFootprint = brdPx;
+  }
+
+  if (!bodyTransparent) {
+    // ----- Background (with optional rounded corners) -----
+    ctx.fillStyle = bg;
+    if (radius > 0) {
+      roundedRectPath(ctx, 0, 0, W, H, radius);
+      ctx.fill();
+    } else {
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // ----- Border -----
+    if (style === 'double') {
+      const oc = resolveColor(outerColor);
+      const ot = Math.max(0, Number(outerThickness) || 0);
+      const g = Math.max(0, Number(gap) || 0);
+      const ic = resolveColor(innerColor);
+      const it = Math.max(0, Number(innerThickness) || 0);
+      drawDoubleBorder(ctx, W, H, oc, ot, g, ic, it, radius);
+    } else if (style !== 'none') {
+      const brd = resolveColor(borderColor);
+      const brdPx = Math.max(0, Number(borderThickness) || 0);
+      if (brd && brdPx > 0) {
+        drawSimpleBorder(ctx, W, H, brd, brdPx, style, radius);
+      }
     }
   }
 

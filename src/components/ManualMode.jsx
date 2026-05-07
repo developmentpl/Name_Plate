@@ -64,9 +64,12 @@ export default function ManualMode() {
 
   const handleExport = (format) => {
     // Render at high DPI for download
-    renderNameplate(exportCanvasRef.current, { ...config, dpi: 300 });
+    const exportConfig = { ...config, dpi: 300 };
+    renderNameplate(exportCanvasRef.current, exportConfig);
     const fname = sanitizeFilename(config.text || 'nameplate');
-    exportSingle(exportCanvasRef.current, format, fname);
+    // Passing exportConfig enables the print-ready (CMYK vector) PDF path.
+    // Other formats ignore it and behave exactly as before.
+    exportSingle(exportCanvasRef.current, format, fname, exportConfig);
     setShowExport(false);
   };
 
